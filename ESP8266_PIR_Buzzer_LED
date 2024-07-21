@@ -1,0 +1,39 @@
+#include <ESP8266WiFi.h>
+
+// Define the pins for the PIR sensor, LED, and buzzer
+const int pirPin = D5;
+const int ledPin = D6;
+const int buzzerPin = D7;
+
+void setup() {
+  // Initialize serial communication
+  Serial.begin(115200);
+
+  // Set the pin modes
+  pinMode(pirPin, INPUT);
+  pinMode(ledPin, OUTPUT);
+  pinMode(buzzerPin, OUTPUT);
+
+  // Start with the LED and buzzer turned off
+  digitalWrite(ledPin, LOW);
+  digitalWrite(buzzerPin, LOW);
+}
+
+void loop() {
+  // Read the PIR sensor value
+  int pirValue = digitalRead(pirPin);
+
+  if (pirValue == HIGH) {
+    // Motion detected, turn on the LED and buzzer
+    Serial.println("Motion detected!");
+    digitalWrite(ledPin, HIGH);
+    digitalWrite(buzzerPin, HIGH);
+  } else {
+    // No motion, turn off the LED and buzzer
+    digitalWrite(ledPin, LOW);
+    digitalWrite(buzzerPin, LOW);
+  }
+
+  // Small delay to avoid bouncing
+  delay(100);
+}
